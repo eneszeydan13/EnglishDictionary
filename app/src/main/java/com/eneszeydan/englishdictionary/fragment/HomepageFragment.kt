@@ -1,4 +1,4 @@
-package com.eneszeydan.englishdictionary.fragments
+package com.eneszeydan.englishdictionary.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

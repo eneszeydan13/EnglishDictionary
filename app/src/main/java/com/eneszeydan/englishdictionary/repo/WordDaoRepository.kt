@@ -19,7 +19,7 @@ class WordDaoRepository {
         wdao = ApiUtils.getWordsInterface()
     }
 
-    fun getWord(word: Word): MutableLiveData<Word>{
+    fun getWord(): MutableLiveData<Word>{
         return wordObject
     }
 
