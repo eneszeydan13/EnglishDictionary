@@ -10,8 +10,11 @@ class HomepageFragmentViewModel: ViewModel() {
     var word = MutableLiveData<Word>()
     var wrepo = WordDaoRepository()
 
-    fun getWordInfo(key:String){
+    init {
         word = wrepo.getWord()
+    }
+
+    fun getWordInfo(key:String){
         wrepo.getWordInfo(key)
     }
 

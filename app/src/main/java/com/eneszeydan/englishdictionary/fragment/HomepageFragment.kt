@@ -1,8 +1,9 @@
 package com.eneszeydan.englishdictionary.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -23,7 +24,13 @@ class HomepageFragment : Fragment(), SearchView.OnQueryTextListener {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_homepage, container, false)
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        //TODO: Observe LiveData and bind it to layout
+
+        viewModel.word.observe(viewLifecycleOwner, {word ->
+            binding.word = word
+            word?.let {
+                it.word?.let { it1 -> Log.d("Word", it1) }
+            }
+        })
 
         return binding.root
     }
@@ -49,14 +56,20 @@ class HomepageFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
 
-    override fun onQueryTextSubmit(query: String): Boolean {
-        viewModel.getWordInfo(query)
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            Log.d("Query", query)
+            viewModel.getWordInfo(query)
+        }
         return true
     }
 
 
-    override fun onQueryTextChange(query: String): Boolean {
-        viewModel.getWordInfo(query)
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null) {
+            Log.d("Query", query)
+            viewModel.getWordInfo(query)
+        }
         return true
     }
 

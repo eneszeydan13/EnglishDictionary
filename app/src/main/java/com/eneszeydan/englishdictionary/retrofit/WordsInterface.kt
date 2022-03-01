@@ -8,6 +8,6 @@ import retrofit2.http.Path
 interface WordsInterface {
 
     @GET("en/{word}")
-    fun getWordInfo(@Path("word")word: String): Call<Word>
+    fun getWordInfo(@Path("word")word: String?): Call<List<Word>>
 
 }

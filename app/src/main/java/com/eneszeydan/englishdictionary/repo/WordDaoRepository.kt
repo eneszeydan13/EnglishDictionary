@@ -24,15 +24,16 @@ class WordDaoRepository {
     }
 
     fun getWordInfo(key: String){
-        wdao.getWordInfo(key).enqueue(object : Callback<Word>{
-            override fun onResponse(call: Call<Word>?, response: Response<Word>) {
-                val w = response.body()
+        wdao.getWordInfo(key).enqueue(object : Callback<List<Word>>{
+            override fun onResponse(call: Call<List<Word>>?, response: Response<List<Word>>?) {
+                val w = response?.body()?.get(0)
                 wordObject.value = w
             }
 
-            override fun onFailure(call: Call<Word>?, t: Throwable) {
-                wordObject.value = null
+            override fun onFailure(call: Call<List<Word>>?, t: Throwable) {
+                Log.d("Failure", t.localizedMessage)
             }
+
 
         })
     }
