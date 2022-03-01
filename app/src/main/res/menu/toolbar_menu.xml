@@ -6,6 +6,7 @@
         android:icon="@drawable/search_icon"
         android:id="@+id/action_search"
         android:title="Search for a word..."
+        app:queryHint="Search for a word..."
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 </menu>
