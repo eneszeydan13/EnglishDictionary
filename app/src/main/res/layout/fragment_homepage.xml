@@ -10,6 +10,9 @@
         <variable
             name="word"
             type="com.eneszeydan.englishdictionary.model.Word" />
+        <variable
+            name="fragment"
+            type="com.eneszeydan.englishdictionary.fragment.HomepageFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +43,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/phoneticTV"
@@ -82,14 +85,30 @@
 
                 <ImageView
                     android:id="@+id/imageView"
+                    android:contentDescription="Tap to listen"
                     android:layout_width="34sp"
                     android:layout_height="34sp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="40dp"
+                    android:onClick="@{() -> fragment.playSound(word)}"
                     android:visibility="@{word == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toEndOf="@+id/wordName"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/voice" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:visibility="@{word == null ? View.VISIBLE : View.GONE}"
+                    android:text="@string/homepageEmptyText"
+                    android:textColor="@color/black"
+                    android:textSize="34sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/meaning" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

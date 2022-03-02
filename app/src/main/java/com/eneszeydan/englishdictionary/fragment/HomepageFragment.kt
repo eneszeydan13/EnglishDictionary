@@ -1,29 +1,43 @@
 package com.eneszeydan.englishdictionary.fragment
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.speech.tts.TextToSpeech.OnInitListener
 import android.util.Log
 import android.view.*
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.eneszeydan.englishdictionary.R
 import com.eneszeydan.englishdictionary.databinding.FragmentHomepageBinding
+import com.eneszeydan.englishdictionary.model.Word
 import com.eneszeydan.englishdictionary.viewmodel.HomepageFragmentViewModel
+import java.util.*
 
 
 class HomepageFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var binding : FragmentHomepageBinding
     private lateinit var viewModel : HomepageFragmentViewModel
+    lateinit var tts:TextToSpeech
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_homepage, container, false)
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        binding.fragment = this
+
+        tts = TextToSpeech(requireContext(), OnInitListener {status ->
+            if(status == TextToSpeech.SUCCESS){
+                tts.language = Locale.UK
+            }
+        })
+
 
         viewModel.word.observe(viewLifecycleOwner, {word ->
             binding.word = word
@@ -34,6 +48,8 @@ class HomepageFragment : Fragment(), SearchView.OnQueryTextListener {
 
         return binding.root
     }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +87,10 @@ class HomepageFragment : Fragment(), SearchView.OnQueryTextListener {
             viewModel.getWordInfo(query)
         }
         return true
+    }
+
+    fun playSound(word:Word){
+         tts.speak(word.word, TextToSpeech.QUEUE_FLUSH, null, null)
     }
 
 }

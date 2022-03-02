@@ -31,7 +31,7 @@ class WordDaoRepository {
             }
 
             override fun onFailure(call: Call<List<Word>>?, t: Throwable) {
-                Log.d("Failure", t.localizedMessage)
+                Log.d("Failure", t.localizedMessage!!)
             }
 
 
