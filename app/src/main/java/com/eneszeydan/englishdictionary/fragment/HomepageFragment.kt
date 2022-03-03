@@ -1,10 +1,11 @@
 package com.eneszeydan.englishdictionary.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.speech.tts.TextToSpeech.OnInitListener
 import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -32,11 +33,11 @@ class HomepageFragment : Fragment(), SearchView.OnQueryTextListener {
 
         binding.fragment = this
 
-        tts = TextToSpeech(requireContext(), OnInitListener {status ->
-            if(status == TextToSpeech.SUCCESS){
+        tts = TextToSpeech(requireContext()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
                 tts.language = Locale.UK
             }
-        })
+        }
 
 
         viewModel.word.observe(viewLifecycleOwner, {word ->
@@ -77,7 +78,13 @@ class HomepageFragment : Fragment(), SearchView.OnQueryTextListener {
             Log.d("Query", query)
             viewModel.getWordInfo(query)
         }
+        hideKeyboard()
         return true
+    }
+
+    private fun hideKeyboard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
 
