@@ -32,6 +32,7 @@ class HomepageFragment : Fragment(), SearchView.OnQueryTextListener {
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
 
         binding.fragment = this
+        binding.toolbarText = "English Dictionary (UK)"
 
         tts = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {

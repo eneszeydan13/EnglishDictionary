@@ -13,6 +13,9 @@
         <variable
             name="fragment"
             type="com.eneszeydan.englishdictionary.fragment.HomepageFragment" />
+        <variable
+            name="toolbarText"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +25,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            app:title="@{toolbarText}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -78,14 +82,14 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{word.meanings[0].definitions[0].definition}"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/phoneticTV" />
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:contentDescription="Tap to listen"
+                    android:contentDescription="@string/voiceImageContentDesc"
                     android:layout_width="34sp"
                     android:layout_height="34sp"
                     android:layout_marginStart="16dp"
@@ -97,7 +101,7 @@
                     app:srcCompat="@drawable/voice" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/homepageEmptyTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -107,6 +111,21 @@
                     android:textSize="34sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/meaning" />
+
+                <TextView
+                    android:id="@+id/exampleSentence"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{`Example:` + word.meanings[0].definitions[0].example}"
+                    android:textColor="#292828"
+                    android:textSize="16sp"
+                    android:visibility="@{word.meanings[0].definitions[0].example == null ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/meaning" />
             </androidx.constraintlayout.widget.ConstraintLayout>
